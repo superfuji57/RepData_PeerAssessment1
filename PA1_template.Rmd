@@ -25,10 +25,13 @@ qplot(data.daily$StepsPerDay,geom="histogram", xlab="Total Steps Per Day")
 ```
 
 ## What are the mean and median steps per day?
-```{r, stats}
-mean(data.daily$StepsPerDay, na.rm=TRUE)
-median(data.daily$StepsPerDay, na.rm = TRUE)
+```{r, stats, results='hide'}
+mn <- mean(data.daily$StepsPerDay, na.rm=TRUE)
+md <- median(data.daily$StepsPerDay, na.rm = TRUE)
 ```
+
+The mean is `r mn` and the median is `r md`.
+
 
 ## What is the average daily activity pattern?
 1. Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
@@ -36,7 +39,7 @@ median(data.daily$StepsPerDay, na.rm = TRUE)
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 Plot the the average steps taken across all days, grouped by interval, and add a red dashed line at the interval with the greatest number of average steps taken.
-```{r, timeseries plot}
+```{r, timeseries_plot}
 data.interval <- group_by(data, interval) %>%
                         summarize(AvgSteps = mean(steps, na.rm = TRUE))
 
@@ -52,7 +55,7 @@ g + geom_line() + geom_vline(xintercept = data.interval$interval[which.max(data.
 ```{r countNA, results='hide'}
 total.na <- sum(is.na(data$steps))
 ```
-The total number of NA values in the dataset is `total.na`.
+The total number of NA values in the dataset is `r total.na`.
 
 2. Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
@@ -76,7 +79,8 @@ mean.no.na <- mean(data.no.na.daily$StepsPerDay)
 median.no.na <- median(data.no.na.daily$StepsPerDay)
 qplot(data.no.na.daily$StepsPerDay, xlab = "Total Steps per Day")
 ```
-With the NA values replaced, the mean is `mean.no.na` and the median is `median.no.na`.
+
+With the NA values replaced, the mean is `r mean.no.na` and the median is `r median.no.na`.
 
 ## Any differences in activity patterns between weekdays and weekends?
 
